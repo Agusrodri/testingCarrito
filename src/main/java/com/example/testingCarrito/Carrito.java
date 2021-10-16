@@ -18,13 +18,14 @@ public class Carrito {
 
     public void agregarProductoAlCarrito(Producto producto, Integer cantidad){
 
-        if(cantidad<= producto.getCantidadStock()){
+        if(cantidad<= producto.getCantidadStock() && cantidad>=0){
             DetalleCarrito detalle= new DetalleCarrito(cantidad,producto.getDescripcionProducto(),
                     producto.getNombreProducto(), producto.getPrecioProducto(),
                     producto);
             detallesCarrito.add(detalle);
+            System.out.println("Se agregaron" + cantidad + " productos al carrito");
         }else{
-            System.out.println("La cantidad seleccionada es mayor a la cantidad en stock");
+            System.out.println("ERROR: La cantidad seleccionada es mayor a la cantidad en stock o es negativa");
         }
     }
 }

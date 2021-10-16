@@ -25,19 +25,42 @@ public class CarritoTest {
     @BeforeEach
     public void beforeEach() {
        carrito = new Carrito();
-        producto= new Producto(10,"Tablet Samsung A50",
-                "jsahdbfjasd", 200 );
+
 
     }
 
     @Test
-    public void verificarCantidadAgregadaSeaMayorAstockProducto(){
-
+    public void verificarCantidadAgregadaNoSeaMayorAstockProducto(){
+        producto= new Producto(10,"Tablet Samsung A50",
+                "jsahdbfjasd", 200 );
         int esperado=11;
         carrito.agregarProductoAlCarrito(producto,esperado);
         Assertions.assertTrue(carrito.getDetallesCarrito().size()==0);
 
     }
+
+    @Test
+    public void verificarCantidadAgregadaNoSeaNegativa(){
+        producto= new Producto(10,"Tablet Samsung A50",
+                "jsahdbfjasd", 200 );
+        int esperado=-9;
+        carrito.agregarProductoAlCarrito(producto,esperado);
+        Assertions.assertTrue(carrito.getDetallesCarrito().size()==0);
+
+    }
+
+    @Test
+    public void verificarSiCantidadStockEs5SeAgreganHasta5Productos(){
+        producto= new Producto(5,"Tablet Samsung A50",
+                "jsahdbfjasd", 200 );
+        int cantidadAIngresar=3;
+        carrito.agregarProductoAlCarrito(producto,cantidadAIngresar);
+        Assertions.assertTrue(carrito.getDetallesCarrito().get(0).getProducto().getCantidadStock()>=cantidadAIngresar);
+
+    }
+
+
+
 
 
 
