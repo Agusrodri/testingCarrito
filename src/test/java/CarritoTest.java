@@ -89,6 +89,44 @@ public class CarritoTest {
 
     }
 
+    @Test
+    public void verificarPermitirAumentarEnUnoCantidadAComprar(){
+        producto= new Producto(5,"Tablet Samsung A50",
+                "jsahdbfjasd", 200 );
+        int cantidadAIngresar=2;
+        carrito.agregarProductoAlCarrito(producto,cantidadAIngresar);
+        carrito.aumentarCantidadAIngresar(carrito.getDetallesCarrito().get(0).getCantidadProducto());
+        int esperado=3;
+        Assertions.assertEquals(esperado,cantidadAIngresar+1);
+
+    }
+
+    @Test
+    public void verificarPermitirDisminuirEnUnoCantidadAComprar(){
+        producto= new Producto(5,"Tablet Samsung A50",
+                "jsahdbfjasd", 200 );
+        int cantidadAIngresar=2;
+        carrito.agregarProductoAlCarrito(producto,cantidadAIngresar);
+        carrito.disminuirCantidadAIngresar(carrito.getDetallesCarrito().get(0).getCantidadProducto());
+        int esperado=1;
+        Assertions.assertEquals(esperado,cantidadAIngresar-1);
+
+    }
+
+    @Test
+    public void verificarNoPermitirDisminuirEnUnoCantidadAComprarCuandoCantidadAComprarEsUno(){
+        producto= new Producto(5,"Tablet Samsung A50",
+                "jsahdbfjasd", 200 );
+        int cantidadAIngresar=1;
+        carrito.agregarProductoAlCarrito(producto,cantidadAIngresar);
+        carrito.disminuirCantidadAIngresar(carrito.getDetallesCarrito().get(0).getCantidadProducto());
+        int esperado=1;
+        Assertions.assertEquals(esperado,cantidadAIngresar);
+
+    }
+
+
+
 
 
 

@@ -36,6 +36,27 @@ public class Carrito {
         }
 
     }
+
+    public int aumentarCantidadAIngresar(int cantidadAaumentar){
+
+        int resultado= cantidadAaumentar+1;
+        System.out.printf("Cantidad aumentada en 1 unidad");
+        return resultado;
+
+
+    }
+
+    public int disminuirCantidadAIngresar(int cantidadAaumentar) {
+        if (cantidadAaumentar>1) {
+            int resultado = cantidadAaumentar - 1;
+            System.out.printf("Cantidad disminuida en 1 unidad");
+            return resultado;
+
+        }else{
+            System.out.println("ERROR: No se permite disminuir la cantidad si la misma es 1");
+            return  cantidadAaumentar;
+        }
+    }
 }
 
 
