@@ -17,7 +17,6 @@ public class Carrito {
     private List<DetalleCarrito> detallesCarrito= new ArrayList<>();
 
     public void agregarProductoAlCarrito(Producto producto, Integer cantidad){
-
         if(cantidad<= producto.getCantidadStock()){
             DetalleCarrito detalle= new DetalleCarrito(cantidad,producto.getDescripcionProducto(),
                     producto.getNombreProducto(), producto.getPrecioProducto(),
@@ -27,4 +26,5 @@ public class Carrito {
             System.out.println("La cantidad seleccionada es mayor a la cantidad en stock");
         }
     }
+    
 }
