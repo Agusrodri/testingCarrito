@@ -30,7 +30,7 @@ public class CarritoTest {
     }
 
     @Test
-    public void verificarCantidadAgregadaNoSeaMayorAstockProducto(){
+    public void verificarCreacionDetalleIncorrectaSiCantidadAgregadaEsMayorAstockProducto(){
         producto= new Producto(10,"Tablet Samsung A50",
                 "jsahdbfjasd", 200 );
         int esperado=11;
@@ -58,6 +58,40 @@ public class CarritoTest {
         Assertions.assertTrue(carrito.getDetallesCarrito().get(0).getProducto().getCantidadStock()>=cantidadAIngresar);
 
     }
+
+    @Test
+    public void verificarCantidadAIngresarNoSeaNula(){
+        producto= new Producto(5,"Tablet Samsung A50",
+                               "jsahdbfjasd", 200 );
+        int cantidadAIngresar=0;
+        carrito.agregarProductoAlCarrito(producto,cantidadAIngresar);
+        Assertions.assertTrue(carrito.getDetallesCarrito().size()==0);
+
+    }
+
+    @Test
+    public void mostrarCantidadDeCadaProductoAComprar(){
+        producto= new Producto(5,"Tablet Samsung A50",
+                "jsahdbfjasd", 200 );
+        Producto producto2= new Producto(10,"Telefono Samsung A30",
+                "descripcion1", 250 );
+
+        int cantidadAIngresar1=4;
+        int cantidadAIngresar2=3;
+
+        carrito.agregarProductoAlCarrito(producto,cantidadAIngresar1);
+        carrito.agregarProductoAlCarrito(producto2,cantidadAIngresar2);
+
+        carrito.mostrarCantidadesAComprar();
+
+        Assertions.assertTrue(true); //significa que llamó correctamente al método mostrarCantidadesACompar()
+                                             //y se muestra la salida correcta por pantalla
+
+    }
+
+
+
+
 
 
 

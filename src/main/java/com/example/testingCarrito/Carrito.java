@@ -18,14 +18,22 @@ public class Carrito {
 
     public void agregarProductoAlCarrito(Producto producto, Integer cantidad){
 
-        if(cantidad<= producto.getCantidadStock() && cantidad>=0){
+        if(cantidad<= producto.getCantidadStock() && cantidad>0){
             DetalleCarrito detalle= new DetalleCarrito(cantidad,producto.getDescripcionProducto(),
                     producto.getNombreProducto(), producto.getPrecioProducto(),
                     producto);
             detallesCarrito.add(detalle);
-            System.out.println("Se agregaron" + cantidad + " productos al carrito");
+            System.out.println("Se agregaron " + cantidad +" "+ producto.getNombreProducto() + " al carrito");
         }else{
-            System.out.println("ERROR: La cantidad seleccionada es mayor a la cantidad en stock o es negativa");
+            System.out.println("ERROR: La cantidad seleccionada es mayor a la cantidad en stock, es negativa o cero");
         }
+    }
+
+    public void mostrarCantidadesAComprar(){
+
+        for(DetalleCarrito d: detallesCarrito){
+            System.out.println( "El producto "+ d.getNombreProducto() + " tiene "+ d.getCantidadProducto() + " unidades en el carrito");
+        }
+
     }
 }
