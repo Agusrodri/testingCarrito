@@ -4,6 +4,7 @@ import com.example.testingCarrito.Producto;
 
 import org.junit.jupiter.api.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CarritoTest {
 
     Carrito carrito;
@@ -23,13 +24,20 @@ public class CarritoTest {
         System.out.println();
     }
     @BeforeEach
-    public void beforeEach() {
+    public void beforeEach(TestInfo testInfo) {
        carrito = new Carrito();
-
-
+        System.out.println("Comienza: "+ testInfo.getDisplayName());
+    }
+    @AfterEach
+    public void afterEach(TestInfo testInfo){
+        carrito.getDetallesCarrito().clear();
+        System.out.println("Finaliza: "+ testInfo.getDisplayName());
+        System.out.println("---------------------------------------");
     }
 
     @Test
+    @Order(1)
+    @DisplayName("Verificar la creacion del detalle incorrecta si agrego mas que lo que tengo en stock")
     public void verificarCreacionDetalleIncorrectaSiCantidadAgregadaEsMayorAstockProducto(){
         producto= new Producto(10,"Tablet Samsung A50",
                 "jsahdbfjasd", 200 );
@@ -40,6 +48,8 @@ public class CarritoTest {
     }
 
     @Test
+    @Order(2)
+    @DisplayName("Verificar que la cantidad agregada no es negativa")
     public void verificarCantidadAgregadaNoSeaNegativa(){
         producto= new Producto(10,"Tablet Samsung A50",
                 "jsahdbfjasd", 200 );
@@ -50,6 +60,8 @@ public class CarritoTest {
     }
 
     @Test
+    @Order(3)
+    @DisplayName("Verificar que si solo tengo 5 en stock, la cantidad maxima para agregar sea 5")
     public void verificarSiCantidadStockEs5SeAgreganHasta5Productos(){
         producto= new Producto(5,"Tablet Samsung A50",
                 "jsahdbfjasd", 200 );
@@ -60,6 +72,8 @@ public class CarritoTest {
     }
 
     @Test
+    @Order(4)
+    @DisplayName("Verificar que la cantidad a agregar no sea nula")
     public void verificarCantidadAIngresarNoSeaNula(){
         producto= new Producto(5,"Tablet Samsung A50",
                                "jsahdbfjasd", 200 );
@@ -70,6 +84,8 @@ public class CarritoTest {
     }
 
     @Test
+    @Order(5)
+    @DisplayName("Verificar que se muestra la cantidad agregada del producto")
     public void mostrarCantidadDeCadaProductoAComprar(){
         producto= new Producto(5,"Tablet Samsung A50",
                 "jsahdbfjasd", 200 );
@@ -84,12 +100,15 @@ public class CarritoTest {
 
         carrito.mostrarCantidadesAComprar();
 
+        //esto se podria hacer de otra forma porque si no no testeamos nada, esa condicion es siempre verdadera
         Assertions.assertTrue(true); //significa que llamó correctamente al método mostrarCantidadesACompar()
                                              //y se muestra la salida correcta por pantalla
 
     }
 
     @Test
+    @Order(6)
+    @DisplayName("Verificar que se permite aumentar en uno la cantidad de un producto en el carrito")
     public void verificarPermitirAumentarEnUnoCantidadAComprar(){
         producto= new Producto(5,"Tablet Samsung A50",
                 "jsahdbfjasd", 200 );
@@ -102,6 +121,8 @@ public class CarritoTest {
     }
 
     @Test
+    @Order(7)
+    @DisplayName("Verificar que se permite disminuir en uno la cantidad de un producto en el carrito")
     public void verificarPermitirDisminuirEnUnoCantidadAComprar(){
         producto= new Producto(5,"Tablet Samsung A50",
                 "jsahdbfjasd", 200 );
@@ -114,6 +135,8 @@ public class CarritoTest {
     }
 
     @Test
+    @Order(8)
+    @DisplayName("Verificar que solo permita disminuir un producto si la cantidad en el carrito es mayor a 1")
     public void verificarNoPermitirDisminuirEnUnoCantidadAComprarCuandoCantidadAComprarEsUno(){
         producto= new Producto(5,"Tablet Samsung A50",
                 "jsahdbfjasd", 200 );
@@ -126,16 +149,34 @@ public class CarritoTest {
     }
 
     @Test
+    @Order(9)
     public void verificarSoloCaracteresEnCampoCantidad(){
-
        // carrito.ingresarCantidadAComprar();
-
-
+        //no se quien esta trabajando en este pero por las dudas no lo borro
         Assertions.assertTrue(true);
-
-
     }
 
+    //Al crear un objeto Detalle, debe corroborarse que la cantidad sea mayor o igual a 1.
+    @Test
+    @Order(10)
+    @DisplayName("Verificar que el nombre en el detalle es el mismo que el del producto individual")
+    public void testVerificarCoincidenciaDelNombreDelProductoConElDetalle(){
+        Producto producto = new Producto(10, "Tablet Samsung A9", "Descripcion", 300);
+        carrito.getDetallesCarrito().add(new DetalleCarrito(1, "Descripcion", "Tablet Samsung A9", 300, producto));
+
+        //si el nombre del producto es el mismo en el detalle, test exitoso
+        Assertions.assertEquals(producto.getNombreProducto(), carrito.getDetallesCarrito().get(0).getNombreProducto());
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("Verificar que la cantidad que agrego sea mayor o igual a uno al crear el detalle")
+    public void testVerificarCantidadEnElCarrritoEsMayorOIgualAUno(){
+        Producto producto = new Producto(10, "Tablet Samsung A9", "Descripcion", 300);
+        carrito.getDetallesCarrito().add(new DetalleCarrito(1, "Descripcion", "Tablet Samsung A9", 300, producto));
+
+        Assertions.assertTrue(1 <= carrito.getDetallesCarrito().get(0).getCantidadProducto());
+    }
 
 
 
