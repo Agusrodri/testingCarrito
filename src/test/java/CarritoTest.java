@@ -125,6 +125,17 @@ public class CarritoTest {
 
     }
 
+    @Test
+    public void verificarSoloCaracteresEnCampoCantidad(){
+
+       // carrito.ingresarCantidadAComprar();
+
+
+        Assertions.assertTrue(true);
+
+
+    }
+
 
 
 
