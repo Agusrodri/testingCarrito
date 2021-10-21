@@ -114,11 +114,12 @@ public class CarritoTest {
     public void verificarPermitirAumentarEnUnoCantidadAComprar(){
         producto= new Producto(5,"Tablet Samsung A50",
                 "Descripcion", 200 );
-        int cantidadAIngresar=2;
-        carrito.agregarProductoAlCarrito(producto,cantidadAIngresar);
-        carrito.aumentarCantidadAIngresar(carrito.getDetallesCarrito().get(0).getCantidadProducto());
-        int esperado=3;
-        Assertions.assertEquals(esperado,cantidadAIngresar+1);
+
+        carrito.agregarProductoAlCarrito(producto,2);
+        Integer esperado = carrito.getDetallesCarrito().get(0).getCantidadProducto()+1;
+        carrito.aumentarCantidadAIngresar(carrito.getDetallesCarrito().get(0));
+
+        Assertions.assertEquals(esperado, carrito.getDetallesCarrito().get(0).getCantidadProducto());
 
     }
 
@@ -130,10 +131,9 @@ public class CarritoTest {
                 "Descripcion", 200 );
         int cantidadAIngresar=2;
         carrito.agregarProductoAlCarrito(producto,cantidadAIngresar);
-        carrito.disminuirCantidadAIngresar(carrito.getDetallesCarrito().get(0).getCantidadProducto());
-        int esperado=1;
-        Assertions.assertEquals(esperado,cantidadAIngresar-1);
-
+        carrito.disminuirCantidadAIngresar(carrito.getDetallesCarrito().get(0));
+        Integer esperado = carrito.getDetallesCarrito().get(0).getCantidadProducto();
+        Assertions.assertEquals(esperado, carrito.getDetallesCarrito().get(0).getCantidadProducto());
     }
 
     @Test
@@ -144,19 +144,21 @@ public class CarritoTest {
                 "Descripcion", 200 );
         int cantidadAIngresar=1;
         carrito.agregarProductoAlCarrito(producto,cantidadAIngresar);
-        carrito.disminuirCantidadAIngresar(carrito.getDetallesCarrito().get(0).getCantidadProducto());
+        carrito.disminuirCantidadAIngresar(carrito.getDetallesCarrito().get(0));
         int esperado=1;
         Assertions.assertEquals(esperado,cantidadAIngresar);
-
     }
 
     //El nombre y descripción del producto son obligatorios porque se van a mostrar en el carrito.
     @Test
     @Order(9)
     @DisplayName("Verificar nombre y descripcion obligatorio")
-    public void verificarSoloNumerosEnCampoCantidad(){
+    public void verificarNombreYDescripcionObligatorio(){
+        producto= new Producto(5,"Tablet Samsung A50", "Descripcion", 200 );
+        carrito.agregarProductoAlCarrito(producto, 3);
 
-        Exception thrown =  assertThrows(Exception.class, ()-> carrito.ingresarCantidadAComprar(), "Excepcion lanzada");
+        Assertions.assertNotNull(carrito.getDetallesCarrito().get(0).getNombreProducto());
+        Assertions.assertNotNull(carrito.getDetallesCarrito().get(0).getDescripcionProducto());
     }
 
     //Al crear un objeto Detalle, debe corroborarse que la cantidad sea mayor o igual a 1.
@@ -194,7 +196,34 @@ public class CarritoTest {
         carrito.vaciarCarrito();
         Assertions.assertEquals(0, carrito.getDetallesCarrito().size());
     }
+    //Al cambiar el nombre del producto, se debe cambiar el nombre de ese producto en el carrito.
+    @Test
+    @Order(13)
+    @DisplayName("Verificar que subtotal sea correcto al eliminar un producto")
+    public void testVerificarSubtotalCorrectoRestar(){
+        producto= new Producto(5,"Tablet Samsung A50", "Descripcion", 200 );
+        Producto producto2= new Producto(7,"Telefono Samsung Galaxy S10", "Descripcion", 2400 );
+        carrito.agregarProductoAlCarrito(producto, 3);
+        carrito.agregarProductoAlCarrito(producto2, 2);
 
+        Integer esperado = carrito.getSubtotal() - (producto.getPrecioProducto() * carrito.getDetallesCarrito().get(0).getCantidadProducto());
+
+        carrito.eliminarProductoDelCarrito(carrito.getDetallesCarrito().get(0));
+        Assertions.assertEquals(esperado, carrito.getSubtotal());
+    }
+
+    @Test
+    @Order(14)
+    @DisplayName("Verificar que subtotal sea correcto al agregar un producto")
+    public void testVerificarSubtotalCorrectoSumar(){
+        producto= new Producto(5,"Tablet Samsung A50", "Descripcion", 200 );
+        Producto producto2= new Producto(7,"Telefono Samsung Galaxy S10", "Descripcion", 2400 );
+        carrito.agregarProductoAlCarrito(producto, 3);
+        carrito.agregarProductoAlCarrito(producto2, 2);
+        Integer esperado = 5400;
+
+        Assertions.assertEquals(esperado, carrito.getSubtotal());
+    }
 
 
 

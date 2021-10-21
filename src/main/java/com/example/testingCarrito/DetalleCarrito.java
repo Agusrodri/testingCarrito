@@ -15,6 +15,4 @@ public class DetalleCarrito {
     private String nombreProducto;
     private Integer precioProducto;
     private Producto producto;
-
-
 }
