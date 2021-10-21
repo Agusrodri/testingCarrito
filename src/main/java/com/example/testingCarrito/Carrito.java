@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @Getter
 @AllArgsConstructor
@@ -58,7 +59,20 @@ public class Carrito {
         }
     }
 
+    public void ingresarCantidadAComprar(){
+        Scanner scanner = new Scanner(System.in);
+        Integer cantidad;
 
+        try{
+            System.out.println("Ingrese cantidad");
+            cantidad = scanner.nextInt();
+        }catch(Exception e){
+            System.out.println(e.getMessage() + " Solo se pueden ingresar números");
+        }
+    }
+    public void vaciarCarrito(){
+        this.detallesCarrito.clear();
+    }
 
 }
 

@@ -7,6 +7,6 @@ public class testingCarrito {
         Producto producto= new Producto(10,"Tablet Samsung A50","jsahdbfjasd", 200 );
 
         Carrito carrito = new Carrito();
-
+        carrito.ingresarCantidadAComprar();
     }
 }
