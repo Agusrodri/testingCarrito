@@ -38,6 +38,7 @@ public class CarritoTest {
         System.out.println("---------------------------------------");
     }
 
+    //Test realizado por Angela Lee
     @Test
     @Order(1)
     @DisplayName("Verificar la creacion del detalle incorrecta si agrego mas que lo que tengo en stock")
@@ -49,6 +50,7 @@ public class CarritoTest {
         Assertions.assertEquals(0, carrito.getDetallesCarrito().size());
     }
 
+    //Test realizado por Angela Lee
     @Test
     @Order(2)
     @DisplayName("Verificar que la cantidad agregada no es negativa")
@@ -61,6 +63,7 @@ public class CarritoTest {
 
     }
 
+    //Test realizado por Agustin Corbacho
     @Test
     @Order(3)
     @DisplayName("Verificar que si solo tengo 5 en stock, la cantidad maxima para agregar sea 5")
@@ -73,6 +76,7 @@ public class CarritoTest {
 
     }
 
+    //Test realizado por Agustin Corbacho
     @Test
     @Order(4)
     @DisplayName("Verificar que la cantidad a agregar no sea nula")
@@ -85,6 +89,7 @@ public class CarritoTest {
 
     }
 
+    //Test realizado por Florencia Guevara
     @Test
     @Order(5)
     @DisplayName("Verificar que se muestra la cantidad agregada del producto")
@@ -108,6 +113,7 @@ public class CarritoTest {
 
     }
 
+    //Test realizado por Florencia Guevara
     @Test
     @Order(6)
     @DisplayName("Verificar que se permite aumentar en uno la cantidad de un producto en el carrito")
@@ -123,6 +129,7 @@ public class CarritoTest {
 
     }
 
+    //Test realizado por Agustin Rodriguez
     @Test
     @Order(7)
     @DisplayName("Verificar que se permite disminuir en uno la cantidad de un producto en el carrito")
@@ -136,6 +143,7 @@ public class CarritoTest {
         Assertions.assertEquals(esperado, carrito.getDetallesCarrito().get(0).getCantidadProducto());
     }
 
+    //Test Realizado por Agustin Rodriguez
     @Test
     @Order(8)
     @DisplayName("Verificar que solo permita disminuir un producto si la cantidad en el carrito es mayor a 1")
@@ -149,7 +157,7 @@ public class CarritoTest {
         Assertions.assertEquals(esperado,cantidadAIngresar);
     }
 
-    //El nombre y descripción del producto son obligatorios porque se van a mostrar en el carrito.
+    //Test realizado por Santiago Noseda
     @Test
     @Order(9)
     @DisplayName("Verificar nombre y descripcion obligatorio")
@@ -161,7 +169,7 @@ public class CarritoTest {
         Assertions.assertNotNull(carrito.getDetallesCarrito().get(0).getDescripcionProducto());
     }
 
-    //Al crear un objeto Detalle, debe corroborarse que la cantidad sea mayor o igual a 1.
+    //Test realizado por Santiago Noseda
     @Test
     @Order(10)
     @DisplayName("Verificar que el nombre en el detalle es el mismo que el del producto individual")
@@ -173,7 +181,7 @@ public class CarritoTest {
         System.out.println(msg);
     }
 
-    //Al crear un objeto Detalle, debe corroborarse que la cantidad sea mayor o igual a 1
+    //Test realizado por Juan Ignacio Daibes
     @Test
     @Order(11)
     @DisplayName("Verificar que la cantidad que agrego sea mayor o igual a uno al crear el detalle")
@@ -184,6 +192,8 @@ public class CarritoTest {
         Assertions.assertTrue(1 <= carrito.getDetallesCarrito().get(0).getCantidadProducto(), msg = "La cantidad en el carrito es mayor o igual a 1");
         System.out.println(msg);
     }
+
+    //Test realizado por Juan Ignacio Daibes
     @Test
     @Order(12)
     @DisplayName("Verificar que el carrito se vacía correctamente")
@@ -196,7 +206,8 @@ public class CarritoTest {
         carrito.vaciarCarrito();
         Assertions.assertEquals(0, carrito.getDetallesCarrito().size());
     }
-    //Al cambiar el nombre del producto, se debe cambiar el nombre de ese producto en el carrito.
+
+    //Test realizado por Juan Ignacio Olguin
     @Test
     @Order(13)
     @DisplayName("Verificar que subtotal sea correcto al eliminar un producto")
@@ -212,6 +223,7 @@ public class CarritoTest {
         Assertions.assertEquals(esperado, carrito.getSubtotal());
     }
 
+    //Test realizado por Juan Ignacio Olguin
     @Test
     @Order(14)
     @DisplayName("Verificar que subtotal sea correcto al agregar un producto")
